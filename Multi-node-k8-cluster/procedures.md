@@ -1,15 +1,22 @@
-# Kubernetes Multi-Node Cluster Setup
+# Kubernetes Multi-Node Cluster Setup using Ubuntu
 
-## Step 1: Create VMs
+## Prerequisites for the setup
+1. Prepare VM's 
+2. Disable Swap and enable IP forwarding. 
+3. Install Docker Runtime. 
+4. Install k8 componenet on all nodes.
 
-Run the following script to create virtual machines. Ensure SSH server is installed during the console installation.
+
+## Step 1: Create VMs using KVM, 
+
+Run the following script to create virtual machines individually based on the need. Furthermore, ensure to install the SSH server during VM initialization.
 
 ```bash
 #!/bin/bash
 set -x 
 
 # Check if all required arguments are provided
-if [ "$#" -lt 3 ]; then
+if [ "$#" -lt 4 ]; then
   echo "Usage: $0 <vm_name> <memory> <cpu> <disk_size>"
   exit 1
 fi
@@ -39,61 +46,60 @@ virt-install \
   --console pty,target_type=serial \
   --location $LOCATION_URL \
   --extra-args 'console=ttyS0,115200n8 serial'
+```
 
+## Post-VM Creation Configuration
 
-VM Configuration
-Disable swap on all VMs:
+Once the VMs are ready, use the following commands for post-creation configuration:
 
-bash
-Copy code
-sudo swapoff -a
-Uncomment the swap line in "/etc/fstab" if needed:
+1. Disable swap:
 
-bash
-Copy code
-#/swapfile none swap sw 0 0
-Update "/etc/hosts" on each VM to reflect the hostname.
+    ```bash
+    sudo swapoff -a
+    ```
 
-bash
-Copy code
-nano /etc/hosts
-Edit "/etc/sysctl.conf" and uncomment the following line:
+   Uncomment the swap enrty from the "/etc/fstab" file to turn off swap permanently:
 
-bash
-Copy code
-#net.ipv4.ip_forward = 1
-Apply the changes:
+   ```bash
+   #/swapfile none swap sw 0 0
 
-bash
-Copy code
-sysctl -p
-Run the following command for each VM to disable swap temporarily:
+2. Enable IP forwading in the VMs by uncommenting the following line from the "/etc/sysctl.conf" file. 
 
-bash
-Copy code
-sudo swapoff -a
-Docker Installation on All Nodes
-Install Docker on all nodes using the following commands:
+   ```bash
+   net.ipv4.ip_forward = 1
+   ```
+   
+   Use  ```sudo sysctl -p``` to apply the change. 
 
-bash
-Copy code
+3. Add the k8 node VMs hostnames in the file ```/etc/hosts```  file for easy node access. 
+   
+
+## Step 2 Docker Installation on All Nodes
+
+a. Install the required dependencies to access Docker:
+
+```bash
 sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+```
+b. Add Docker’s GPG key (requires root user):
+```bash
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
+c. Add Docker’s official repository to apt:
+```bash
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
-sudo apt-get install docker-ce -y
-Kubernetes Installation
-Install Kubernetes components on all nodes:
+```
+d. Run the following command to install Docker.
+```bash
+sudo apt-get install docker.io -y
+```
 
-bash
-Copy code
-sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y &&
-sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - &&
-sudo apt-add-repository "deb https://apt.kubernetes.io/ Kubernetes-xenial main" &&
-sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" &&
-sudo apt-get update -y &&
-sudo apt-get install kubectl kubelet kubeadm -y
-Initialize the Kubernetes master node:
+ Once after the installtion you we can verify the status using ```docker -v``` or ```docker version```. 
 
-bash
-Copy code
-sudo kubeadm init --apiserver-advertise-address=10.100.10.49 --pod-network-cidr=10
+### Step 3: Kubernetes Installation 
+
+1. Install Kubernetes repository
+
+
+
+
