@@ -85,9 +85,6 @@ a. Install the package using the following command:
    sudo apt-get install containerd
    ```
    
-
- Once after the installtion you we can verify the status using ```docker -v``` or ```docker version```. 
-
 ## Step 3: Kubernetes Installation 
 
 1. Install Kubernetes repository and the package using the following commands. [Ref link](https://v1-28.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-0) 
@@ -229,7 +226,7 @@ We can use the followng command to install the pod network add-on
 
 Once the control pod is ready them proceed with ading the worker nodes. 
 
-## Joining the worker nodes
+## Adding the worker nodes
   Using the below command to add the worker node to the cluster, in the worker nodes all the pods and the container will be running. 
 
   `kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>`
