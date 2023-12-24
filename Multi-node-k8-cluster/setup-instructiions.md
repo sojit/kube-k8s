@@ -1,4 +1,4 @@
-# Kubernetes Multi-Node Cluster Setup using Ubuntu
+# Kubernetes Multi-Node Cluster Setup using Ubuntu 18.04
 
 ## Prerequisites for the setup
 1. Prepare VM's 
