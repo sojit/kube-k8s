@@ -1,7 +1,7 @@
 # Kubernetes Multi-Node Cluster Setup using Ubuntu 18.04
 
 ## Prerequisites for the setup
-1. Prepare VM's 
+1. VM's, flavor Ubuntu. 
 2. Disable Swap and enable bridge & IP forwarding. 
 3. Install Container Runtime. 
 4. Install k8 componenet on all nodes.
