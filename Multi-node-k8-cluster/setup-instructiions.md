@@ -251,7 +251,7 @@ Once the control pod is ready them proceed with ading the worker nodes.
       Run 'kubectl get nodes' on the control-plane to see this node join the cluster.	
   </details> 
 
-  Cluster status after adding the worker node: 
+  Cluster status after adding the worker nodes: 
    
    ```bash
       kubeuser@kube-master:~$ kubectl get nodes
