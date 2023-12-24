@@ -263,5 +263,24 @@ Once the control pod is ready them proceed with ading the worker nodes.
 
 We are all set we can now deploy the different kind's in the K8 cluster. 
 
+Pod Creation Example:
+```
+kubeuser@kube-master:~$ kubectl get pod
+No resources found in default namespace.
 
+kubeuser@kube-master:~$ kubectl  create -f demo.yaml 
+pod/demo created
+
+kubeuser@kube-master:~$ kubectl get pod
+NAME   READY   STATUS              RESTARTS   AGE
+demo   0/1     ContainerCreating   0          4s
+
+kubeuser@kube-master:~$ kubectl get pod 
+NAME   READY   STATUS    RESTARTS   AGE
+demo   1/1     Running   0          45s
+
+kubeuser@kube-master:~$ kubectl get pod -o wide
+NAME   READY   STATUS    RESTARTS   AGE   IP           NODE          NOMINATED NODE   READINESS GATES
+demo   1/1     Running   0          50s   10.244.2.2   kube-node02   <none>           <none>
+```
       
