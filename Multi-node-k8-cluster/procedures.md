@@ -2,8 +2,8 @@
 
 ## Prerequisites for the setup
 1. Prepare VM's 
-2. Disable Swap and enable IP forwarding. 
-3. Install Docker Runtime. 
+2. Disable Swap and enable bridge & IP forwarding. 
+3. Install Container Runtime. 
 4. Install k8 componenet on all nodes.
 
 
