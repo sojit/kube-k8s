@@ -6,5 +6,5 @@
 ![image](images/net_ns2.png)
 
 
-# Option 2: A bridge to connect different network namespaces
+# Option 2: A bridge with different network namespaces
 ![image](images/br_ns2.png)
